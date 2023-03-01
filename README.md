@@ -2,6 +2,7 @@
 <p align="center">
   <img width="100%" height="auto" src="img/pennybags.jpg" alt="pennybags" />
 </p>
+
 ## 🐾 Intro:
 
 This project was performed for the Oracle Next Education Program. Using the <a href="https://www.exchangerate-api.com/docs/overview" target="_blank" rel="noreferrer">Exchange Rate API</a> from scratch to obtain currency values in real time about the exchange ratio of every currency specified below. A graphic interface was built over javax.swing to provide an intuitive experience.
