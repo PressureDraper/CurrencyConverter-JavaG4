@@ -1,6 +1,6 @@
 <h1 align="center">♨️ Java Currency Converter ♨️</h1>
 <p align="center">
-  <img width="100%" height="auto" src="img/pennybags.jpg" alt="pennybags" />
+  <img width="100%" height="auto" src="img/pennybags.jpg" alt="pennybgs" />
 </p>
 
 ## 🐾 Intro:
