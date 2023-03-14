@@ -24,7 +24,7 @@ This project was performed for the Oracle Next Education Program. Using the <a h
 
 ## 🖼️ Screenshots:
 
-<img width="auto" height="150" src="img\typeValue.png" alt="typeValue"/>
+<img width="auto" height="150" src="img\typeValue.png" alt="typeValue1"/>
 <br>
 <img width="auto" height="250" src="img\selectConversion.png" alt="selectConversion"/>
 <br>
