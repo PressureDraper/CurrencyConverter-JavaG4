@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import java.io.IOException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -50,7 +51,8 @@ public class App {
         double val = (double) json2.get(foreignCurrency);
         return val;
     }
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) {
         
         /*-----------------------------GRAPHIC INTERFACE-------------------------------------- */
         JFrame f = new JFrame(); //creating instance of JFrame 
@@ -89,94 +91,50 @@ public class App {
                 try {
                     String value = tf.getText();
                     double val = Double.parseDouble(value);
+                    ArrayList<String> options = new ArrayList<String>();
                     double res;
                     double ratio;
-                    f.setVisible(false);
-                    
-                    String[] options = {"MXN to USD", "USD to MXN", "MXN to EUR", "EUR to MXN", "MXN to GBP", "GBP to MXN", "MXN to JPY", "JPY to MXN", "MXN to KRW", "KRW to MXN"};
 
+                    if (val < 0) {
+                        throw new NegativeNumbersException();
+                    }
+
+                    //make main frame not visible
+                    f.setVisible(false);
+
+                    //collect all currencies into dynamic arrayList
+                    for (Currencies currency : Currencies.values()) {
+                        options.add(currency.toString());
+                    }
+
+                    //parse dynamic arrayList into array & set icon to JOptionPane window
+                    String[] arr = options.toArray(new String[0]);
                     ImageIcon icon = new ImageIcon("img\\coin.png");
 
                     String n = (String) JOptionPane.showInputDialog(null, "Select your value conversion",
-                    "Conversion Values", JOptionPane.QUESTION_MESSAGE, icon, options, options[2]);
+                    "Conversion Values", JOptionPane.QUESTION_MESSAGE, icon, arr, arr[0]);
 
-                    switch (n) {
-                        case "MXN to USD":
-                            ratio = FetchAPI("MXN","USD");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f MXN equals to %.2f USD.", val, res));
+                    //split choosen value like this["MXN","to","USD"]
+                    String[] splited = n.split("\\s+");
 
-                            f.setVisible(true);
-                            break;
-                        case "USD to MXN":
-                            ratio = FetchAPI("USD","MXN");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f USD equals to %.2f MXN.", val, res));
+                    //send local value [0] and foreign one [2] to API searching, do operation, shows result and goes back to main window
+                    ratio = FetchAPI(splited[0],splited[2]);
+                    res = val * ratio;
+                    JOptionPane.showMessageDialog(null,  String.format("%.2f %s equals to %.2f %s.", val, splited[0] , res, splited[2]));
+                    f.setVisible(true);
 
-                            f.setVisible(true);
-                            break;
-                        case "MXN to EUR":
-                            ratio = FetchAPI("MXN","EUR");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f MXN equals to %.2f EUR.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "EUR to MXN":
-                            ratio = FetchAPI("EUR","MXN");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f EUR equals to %.2f MXN.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "MXN to GBP":
-                            ratio = FetchAPI("MXN","GBP");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f MXN equals to %.2f GBP.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "GBP to MXN":
-                            ratio = FetchAPI("GBP","MXN");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f GBP equals to %.2f MXN.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "MXN to JPY":
-                            ratio = FetchAPI("MXN","JPY");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f MXN equals to %.2f JPY.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "JPY to MXN":
-                            ratio = FetchAPI("JPY","MXN");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f JPY equals to %.2f MXN.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "MXN to KRW":
-                            ratio = FetchAPI("MXN","KRW");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f MXN equals to %.2f KRW.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        case "KRW to MXN":
-                            ratio = FetchAPI("KRW","MXN");
-                            res = val * ratio;
-                            JOptionPane.showMessageDialog(null,  String.format("%.2f KRW equals to %.2f MXN.", val, res));
-
-                            f.setVisible(true);
-                            break;
-                        default:
-                            f.dispose();
-                            break;
-                    }
-                } catch (Exception ex) {
+                } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(null, "Please type numbers only!");
+                } catch (NegativeNumbersException nne) {
+                    JOptionPane.showMessageDialog(null, "Negative numbers are not allowed!");
+                } catch (NullPointerException npe) {
+                    f.setVisible(true);
+                } catch (ParseException pe) {
+                    pe.printStackTrace();
+                    f.dispose();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                    f.dispose();
                 }
             }
         }); 

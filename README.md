@@ -11,23 +11,13 @@ This project was performed for the Oracle Next Education Program. Using the <a h
 
 ## 🎯 Features:
 
-- Convert `MXN` to `USD`
-- Convert `USD` to `MXN`
-- Convert `MXN` to `EUR`
-- Convert `EUR` to `MXN`
-- Convert `MXN` to `GBP`
-- Convert `GBP` to `MXN`
-- Convert `MXN` to `JPY`
-- Convert `JPY` to `MXN`
-- Convert `MXN` to `KRW`
-- Convert `KRW` to `MXN`
+Supports all 161 currencies described in the <a href="https://www.exchangerate-api.com/docs/supported-currencies" target="_blank" rel="noreferrer">official API documentation</a>.
 
-## 🖼️ Screenshots:
+- MXN to all 
+- All to MXN
 
-<img width="auto" height="150" src="img\typeValue.png" alt="typeValue1"/>
-<br>
-<img width="auto" height="250" src="img\selectConversion.png" alt="selectConversion"/>
-<br>
-<img width="auto" height="150" src="img\selectConversion2.png" alt="selectConversion2"/>
-<br>
-<img width="auto" height="150" src="img\result.png" alt="result"/>
+> Foreign currencies have no exchange between them here like USD to ARS for example.
+
+## 🖼️ Demo:
+
+<img width="auto" height="500" src="img\demo.gif" alt="demo"/>
